@@ -1,18 +1,15 @@
 package com.majiang.community.controller;
 
 import com.majiang.community.mapper.QuestionMapper;
-import com.majiang.community.mapper.UserMapper;
 import com.majiang.community.model.Question;
 import com.majiang.community.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -25,8 +22,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 public class PublishController {
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
     private QuestionMapper questionMapper;
@@ -72,20 +67,7 @@ public class PublishController {
         /*
          * 用户发表话题首先要确保用户已经登录，调用登录时的cookies检查的方法判断浏览器是否存在当前用户的token
          * */
-        User user = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length != 0) {
-            for (Cookie cookie : cookies) {
-                if ("token".equals(cookie.getName())) {
-                    String token = cookie.getValue();
-                    user = userMapper.findUserByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
+        User user = (User) request.getSession().getAttribute("user");
         //用户不存在时返回前台信息
         if (user == null) {
             model.addAttribute("error", "用户未登录");
