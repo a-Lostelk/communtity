@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:fragment="nav" class="navbar navbar-default" style="height: 80px; width: auto;">
+    <div class="container-fluid glyphicon-search" style="margin-top: 15px;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Coding 社区</span>
+            </button>
+            <a class="navbar-brand" href="/">Coding 社区</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="搜索问题、话题">
+                </div>
+                <button type="submit" class="btn btn-default">搜索</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/publish">发布</a>
+                </li>
+                <!--只有th:if里面的条件成立，元素的内容才会显示-->
+                <li class="dropdown" th:if="${session.user != null}">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <span th:text="${session.user.getName()}"></span>
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/profile/questions"><span class="glyphicon glyphicon-envelope">&nbsp;消息中心</span></a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-user">&nbsp;个人资料</span> </a></li>
+                        <li><a href="#"><span class="glyphicon glyphicon-remove-circle">&nbsp;退出登录</span></a></li>
+                    </ul>
+                </li>
+                <!--如果没有session就显示登录按钮-->
+                <li th:if="${session.user == null}">
+                    <a href="https://github.com/login/oauth/authorize?client_id=392c25cb6564a22b7cf6&redirect_uri=http://localhost:8081/callback&scope=user&state=1">
+                        登录</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

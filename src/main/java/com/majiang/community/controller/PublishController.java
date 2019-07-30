@@ -1,7 +1,19 @@
 package com.majiang.community.controller;
 
+import com.majiang.community.mapper.QuestionMapper;
+import com.majiang.community.mapper.UserMapper;
+import com.majiang.community.model.Question;
+import com.majiang.community.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,9 +25,87 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class PublishController {
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    private QuestionMapper questionMapper;
 
     @GetMapping("/publish")
     public String publish(){
         return "publish";
     }
+
+    /**
+     * @param title       标题
+     * @param description 描述
+     * @param tags        标签
+     */
+    @PostMapping("/publish")
+    public String doPublish(@RequestParam(value = "title", required = false) String title,
+                            @RequestParam(value = "description", required = false) String description,
+                            @RequestParam(value = "tags", required = false) String tags,
+                            HttpServletRequest request,
+                            Model model) {
+
+        model.addAttribute("title", title);
+        model.addAttribute("description", description);
+        model.addAttribute("tags", tags);
+
+        /*
+         *   如果发生以下错误，通过model对象直接返回页面错误信息
+         * */
+        if (title == null || "".equals(title)) {
+            model.addAttribute("error", "标题不能为空");
+            return "publish";
+        }
+        if (description == null || "".equals(description)) {
+            model.addAttribute("error", "描述不能为空");
+            return "publish";
+        }
+        if (tags == null || "".equals(tags)) {
+            model.addAttribute("error", "标签不能为空");
+            return "publish";
+        }
+
+
+        /*
+         * 用户发表话题首先要确保用户已经登录，调用登录时的cookies检查的方法判断浏览器是否存在当前用户的token
+         * */
+        User user = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null && cookies.length != 0) {
+            for (Cookie cookie : cookies) {
+                if ("token".equals(cookie.getName())) {
+                    String token = cookie.getValue();
+                    user = userMapper.findUserByToken(token);
+                    if (user != null) {
+                        request.getSession().setAttribute("user", user);
+                    }
+                    break;
+                }
+            }
+        }
+        //用户不存在时返回前台信息
+        if (user == null) {
+            model.addAttribute("error", "用户未登录");
+            return "publish";
+        }
+
+        //判断用户已经登录后才执行发表的功能
+        Question question = new Question();
+        question.setTitle(title);
+        question.setDescription(description);
+        question.setTags(tags);
+        question.setCreator(user.getId());
+        question.setGmtCreate(System.currentTimeMillis());
+        question.setGmtModified(question.getGmtCreate());
+        boolean result = questionMapper.create(question);
+        if (result = true) {
+            System.out.println("成功发布");
+            model.addAttribute("msg", "成功发布");
+        }
+        return "redirect:/";
+    }
+
 }

@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="/css/community.css">
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
@@ -15,7 +15,7 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Coding 社区</span>
             </button>
-            <a class="navbar-brand" href="#">Coding 社区</a>
+            <a class="navbar-brand" href="/">Coding 社区</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -45,39 +45,41 @@
             </ul>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">  <!--针对不同屏幕的尺寸-->
-                <span class="glyphicon glyphicon-plus" aria-hidden="true">发起</span>
-                <hr>
-                <form action="">
-                    <div class="form-group">
-                        <label for="title">问题标题:</label>
-                        <input id="title" name="title" type="text" class="form-control" placeholder="问题标题"
-                               onfocus="this.placeholder=''" onblur="this.placeholder='问题标题'">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">问题描述（参照右边提示）：</label>
-                        <textarea id="description" name="description" class="form-control" cols="30" rows="10" placeholder="问题描述"
-                                  onfocus="this.placeholder=''" onblur="this.placeholder='问题描述（参照右边提示）：'">
-                        </textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="title">添加标签:</label>
-                        <input id="tag" name="title" type="text" class="form-control" placeholder="添加标签"
-                               onfocus="this.placeholder=''" onblur="this.placeholder='添加标签 以，号分隔'">
-                    </div>
-                    <button type="submit" id="submit" name="submit" class="btn btn-success">发布</button>
-                </form>
-            </div>
-            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
-                <h3>问题发起指南</h3>
-                1、问题描述：请用简洁的语言描述你的文字，不超过25字 <br>
-                2、问题描述：详细描述你的问题，确保内容直观健康符合主题，提供一些相应的资料<br>
-                3、选择一个或多个标签<br>
-            </div>
+</nav>
+<div class="container-fluid main">
+    <div th:text="${msg}" th:if="${msg != null}">
+    </div>
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">  <!--针对不同屏幕的尺寸-->
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true">发起</span></h2>
+            <hr>
+            <form action="/publish" method="post" id="formPublish">
+                <div class="form-group">
+                    <label for="title">问题标题:</label>
+                    <input id="title" name="title" th:value="${title}"  type="text" class="form-control" placeholder="问题标题..."
+                           onfocus="this.placeholder=''" onblur="this.placeholder='问题标题...'">
+                </div>
+                <div class="form-group">
+                    <label for="description">问题描述（参照右边提示）：</label>
+                    <textarea id="description" name="description" th:value="${description}" class="form-control" cols="30" rows="10" placeholder="问题描述..."
+                              onfocus="this.placeholder=''" onblur="this.placeholder='问题描述...'"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tags">添加标签:</label>
+                    <input id="tags" name="tags" type="text" th:value="${tags}" class="form-control" placeholder="添加标签"
+                           onfocus="this.placeholder=''" onblur="this.placeholder='添加标签 以，号分隔'">
+                </div>
+                <div class="alert alert-danger danger" th:text="${error}" th:if="${error != null}">用户未登录</div>
+                <button type="submit" id="submit" name="submit" class="btn btn-success btn-publish">发布</button>
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
+            <h3>问题发起指南</h3>
+            1、问题描述：请用简洁的语言描述你的文字，不超过25字 <br>
+            2、问题描述：详细描述你的问题，确保内容直观健康符合主题，提供一些相应的资料<br>
+            3、选择一个或多个标签<br>
         </div>
     </div>
-</nav>
+</div>
 </body>
 </html>

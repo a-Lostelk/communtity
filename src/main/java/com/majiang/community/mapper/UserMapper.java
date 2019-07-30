@@ -19,12 +19,21 @@ public interface UserMapper {
      * 新增用户
      * @param user
      */
-    @Insert("INSERT INTO user (name,token,account_id,gmt_create,gmt_modified) VALUES (#{name},#{token},#{accountId},#{gmtCreate},#{gmtModified}) ")
+    @Insert("INSERT INTO user (name,token,account_id,gmt_create,gmt_modified,avatar_url) VALUES (#{name},#{token},#{accountId},#{gmtCreate},#{gmtModified},#{avatarUrl}) ")
     void insert(User user);
 
     /**
-     * @Param 注解将形参中的非Java类参数绑定到SQL语句中
+     *  通过token凭证查找用户
+     * @param token 注解将形参中的非Java类参数绑定到SQL语句中
+     * @return
      */
     @Select("SELECT * FROM user where token=#{token}")
     User findUserByToken(@Param("token") String token);
+
+    /**
+     * 通过id查找用户
+     */
+    @Select("SELECT * FROM user where id=#{id} ")
+    User findUserById(@Param("id") Integer id);
+
 }

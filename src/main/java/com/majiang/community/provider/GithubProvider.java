@@ -18,7 +18,7 @@ import java.io.IOException;
 @Component
 public class GithubProvider {
     /**
-     * 从Gitub中获取access token
+     * 从Gitub中获取access token凭证
      * @param accessTokenDTO
      * @return
      */
@@ -52,6 +52,7 @@ public class GithubProvider {
                 .url("https://api.github.com/user?access_token=" + accessToken)
                 .build();
         try {
+            //  将从GitHub获取到的用户数据存储到GithubUser对象中（头像，id，用户名等）
             Response response = client.newCall(request).execute();
             String string = response.body().string();
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
