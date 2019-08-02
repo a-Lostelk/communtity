@@ -19,7 +19,7 @@ public interface UserMapper {
      * 新增用户
      * @param user
      */
-    @Insert("INSERT INTO user (name,token,account_id,gmt_create,gmt_modified,avatar_url) VALUES (#{name},#{token},#{accountId},#{gmtCreate},#{gmtModified},#{avatarUrl}) ")
+    @Insert("INSERT INTO user (name,token,accountId,gmtCreate,gmtModified,avatarUrl) VALUES (#{name},#{token},#{accountId},#{gmtCreate},#{gmtModified},#{avatarUrl}) ")
     void insert(User user);
 
     /**

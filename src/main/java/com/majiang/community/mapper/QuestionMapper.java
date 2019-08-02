@@ -23,7 +23,7 @@ public interface QuestionMapper {
      * 新增发布问题描述
      * @param question
      */
-    @Insert("INSERT INTO question(title,description,gmt_create,gmt_modified,creator,tags) values (#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tags})")
+    @Insert("INSERT INTO question(title,description,gmtCreate,gmtModified,creator,tags) values (#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tags})")
     boolean create(Question question);
 
     /**
