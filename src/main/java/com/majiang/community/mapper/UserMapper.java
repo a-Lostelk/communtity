@@ -1,10 +1,7 @@
 package com.majiang.community.mapper;
 
 import com.majiang.community.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -36,4 +33,13 @@ public interface UserMapper {
     @Select("SELECT * FROM user where id=#{id} ")
     User findUserById(@Param("id") Integer id);
 
+    /**
+     * 根据accountId查找用户
+     * @return
+     */
+    @Select("SELECT * FROM user where accountId=#{accountId} ")
+    User findUserByAccountId(@Param("accountId") String accountId);
+
+    @Update("UPDATE user SET name=#{name},token=#{token},gmtCreate=#{gmtCreate},gmtModified=#{gmtModified},avatarUrl=#{avatarUrl} where id=#{id}")
+    void updateUser(User user);
 }

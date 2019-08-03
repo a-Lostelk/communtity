@@ -45,7 +45,7 @@ public class PaginationDTO {
     /**
      * 分页栏页码显示
      */
-    private List<Integer> pages = new ArrayList<>();
+    private List<Integer> pages;
 
     /**
      * 总页数
@@ -57,6 +57,7 @@ public class PaginationDTO {
      * @param page  当前页码
      */
     public void setPagination(Integer totalPage, Integer page) {
+        pages = new ArrayList<>();
         //总页数
         this.totalPage = totalPage;
         //将页面当前页码传入
@@ -83,7 +84,7 @@ public class PaginationDTO {
             showPrevious = true;
         }
         //是否展示下一页
-        if (page == totalPage) {
+        if (page.equals(totalPage)) {
             showNext = false;
         } else {
             showNext = true;

@@ -24,5 +24,4 @@ public class User {
     private Long gmtModified;
 
     private String avatarUrl;
-
 }

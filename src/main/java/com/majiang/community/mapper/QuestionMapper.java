@@ -1,5 +1,6 @@
 package com.majiang.community.mapper;
 
+import com.majiang.community.dto.QuestionDTO;
 import com.majiang.community.model.Question;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -50,6 +51,19 @@ public interface QuestionMapper {
                         @Param(value = "offset") Integer offset,
                         @Param(value = "size") Integer size);
 
+    /**
+     * 查询问题的总数
+     * @param userId
+     * @return
+     */
     @Select("SELECT COUNT(1) FROM question WHERE creator = #{userId}")
     Integer countByUserId(@Param("userId") Integer userId);
+
+    /**
+     * 点击问题信息根据id跳转到指定页面
+     * @param id
+     * @return
+     */
+    @Select("SELECT * FROM question where id = #{id}")
+    Question getById(@Param("id") Integer id);
 }
