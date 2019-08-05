@@ -9,51 +9,15 @@
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Coding 社区</span>
-            </button>
-            <a class="navbar-brand" href="/">Coding 社区</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="搜索问题、话题"
-                           onfocus="this.placeholder=''" onblur="this.placeholder='搜索问题、话题'">
-                </div>
-                <button type="submit" class="btn btn-default">搜索</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <!--只有th:if里面的条件成立，元素的内容才会显示-->
-                <li class="dropdown" th:if="${session.user != null}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false" th:text="${session.user.getName()}"><span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">消息中心</a></li>
-                        <li><a href="#">个人资料</a></li>
-                        <li><a href="#">退出登录</a></li>
-                    </ul>
-                </li>
-                <!--如果没有session就显示登录按钮-->
-                <li th:if="${session.user == null}">
-                    <a href="https://github.com/login/oauth/authorize?client_id=392c25cb6564a22b7cf6&redirect_uri=http://localhost:8081/callback&scope=user&state=1">
-                        登录</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:insert="~{navigation::nav}"></div>
 <div class="container-fluid main">
-    <div th:text="${msg}" th:if="${msg != null}">
-    </div>
+
     <div class="row">
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">  <!--针对不同屏幕的尺寸-->
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" style="margin: 30px">  <!--针对不同屏幕的尺寸-->
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true">发起</span></h2>
             <hr>
             <form action="/publish" method="post" id="formPublish">
+                <input type="hidden" name="id" th:value="${id}">
                 <div class="form-group">
                     <label for="title">问题标题:</label>
                     <input id="title" name="title" th:value="${title}"  type="text" class="form-control" placeholder="问题标题..."
@@ -61,7 +25,7 @@
                 </div>
                 <div class="form-group">
                     <label for="description">问题描述（参照右边提示）：</label>
-                    <textarea id="description" name="description" th:value="${description}" class="form-control" cols="30" rows="10" placeholder="问题描述..."
+                    <textarea id="description" name="description" th:text="${description}" class="form-control" cols="30" rows="10" placeholder="问题描述..."
                               onfocus="this.placeholder=''" onblur="this.placeholder='问题描述...'"></textarea>
                 </div>
                 <div class="form-group">
@@ -73,12 +37,13 @@
                 <button type="submit" id="submit" name="submit" class="btn btn-success btn-publish">发布</button>
             </form>
         </div>
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
+        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12" style="margin-top: 40px">
             <h3>问题发起指南</h3>
             1、问题描述：请用简洁的语言描述你的文字，不超过25字 <br>
             2、问题描述：详细描述你的问题，确保内容直观健康符合主题，提供一些相应的资料<br>
             3、选择一个或多个标签<br>
         </div>
+    </div>
     </div>
 </div>
 </body>

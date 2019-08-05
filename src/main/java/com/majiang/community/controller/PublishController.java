@@ -3,10 +3,13 @@ package com.majiang.community.controller;
 import com.majiang.community.mapper.QuestionMapper;
 import com.majiang.community.model.Question;
 import com.majiang.community.model.User;
+import com.majiang.community.service.QuestionService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,9 +28,21 @@ public class PublishController {
 
     @Autowired
     private QuestionMapper questionMapper;
+    @Autowired
+    private QuestionService questionService;
 
     @GetMapping("/publish")
     public String publish(){
+        return "publish";
+    }
+
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable(name = "id") Integer id, Model model) {
+        Question question = questionMapper.getById(id);
+        model.addAttribute("title", question.getTitle());
+        model.addAttribute("description", question.getDescription());
+        model.addAttribute("tags", question.getTags());
+        model.addAttribute("id", id);
         return "publish";
     }
 
@@ -40,6 +55,7 @@ public class PublishController {
     public String doPublish(@RequestParam(value = "title", required = false) String title,
                             @RequestParam(value = "description", required = false) String description,
                             @RequestParam(value = "tags", required = false) String tags,
+                            @RequestParam(value = "id", required = false) Integer id,
                             HttpServletRequest request,
                             Model model) {
 
@@ -80,13 +96,8 @@ public class PublishController {
         question.setDescription(description);
         question.setTags(tags);
         question.setCreator(user.getId());
-        question.setGmtCreate(System.currentTimeMillis());
-        question.setGmtModified(question.getGmtCreate());
-        boolean result = questionMapper.create(question);
-        if (result = true) {
-            System.out.println("成功发布");
-            model.addAttribute("msg", "成功发布");
-        }
+        question.setId(id);
+        questionService.createOrUpdate(question);
         return "redirect:/";
     }
 
