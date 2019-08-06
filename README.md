@@ -12,6 +12,7 @@
 
 [flyway数据库管理工具](https://flywaydb.org/getstarted/firststeps/maven)
 
+[MyBatis Generator逆向工程](http://www.mybatis.org/generator/index.html)
 
 #### 工具
 
@@ -38,3 +39,4 @@ create table USER
   AVATAR_URL   VARCHAR(100)
 );
 ```
+运行逆向工程命令：**mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate**

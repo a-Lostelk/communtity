@@ -1,5 +1,7 @@
 package com.majiang.community.service;
 
+import com.majiang.community.exception.CustomizeErrorCode;
+import com.majiang.community.exception.CustomizeException;
 import com.majiang.community.dto.PaginationDTO;
 import com.majiang.community.dto.QuestionDTO;
 import com.majiang.community.mapper.QuestionMapper;
@@ -105,6 +107,10 @@ public class QuestionService {
 
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.getById(id);
+        if (question == null) {
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
+
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);
         User user = userMapper.findUserById(question.getCreator());
@@ -121,7 +127,10 @@ public class QuestionService {
         }else{
             //更新
             question.setGmtModified(question.getGmtCreate());
-            questionMapper.update(question);
+            int i = questionMapper.update(question);
+            if (i != 1) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 }
