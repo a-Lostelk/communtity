@@ -1,9 +1,9 @@
 package com.majiang.community.service;
 
-import com.majiang.community.exception.CustomizeErrorCode;
-import com.majiang.community.exception.CustomizeException;
 import com.majiang.community.dto.PaginationDTO;
 import com.majiang.community.dto.QuestionDTO;
+import com.majiang.community.exception.CustomizeErrorCode;
+import com.majiang.community.exception.CustomizeException;
 import com.majiang.community.mapper.QuestionMapper;
 import com.majiang.community.mapper.UserMapper;
 import com.majiang.community.model.Question;
@@ -27,7 +27,7 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
+    @Autowired(required = true)
     private QuestionMapper questionMapper;
 
     /**
@@ -121,16 +121,21 @@ public class QuestionService {
     public void createOrUpdate(Question question) {
         if (question.getId() == null) {
             //发布
-            question.setGmtCreate(System.currentTimeMillis());
-            question.setGmtModified(question.getGmtCreate());
+            question.setGmtcreate(System.currentTimeMillis());
+            question.setGmtmodified(question.getGmtcreate());
             questionMapper.create(question);
         }else{
             //更新
-            question.setGmtModified(question.getGmtCreate());
+            question.setGmtmodified(question.getGmtcreate());
             int i = questionMapper.update(question);
             if (i != 1) {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    public void addViews(Integer id) {
+        //获得ID
+        questionMapper.addViewCount(id);
     }
 }

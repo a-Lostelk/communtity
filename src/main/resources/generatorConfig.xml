@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <!--数据库连接信息-->
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:~/community"
+                        userId="sa"
+                        password="123">
+        </jdbcConnection>
+        <!--true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型，默认是false，根据实际情况选择数据类型-->
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!--生成的模型类位置-->
+        <javaModelGenerator targetPackage="com.majiang.community.model" targetProject="src/main/java">
+            <!--不存在时自动创建-->
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!--MapperXML的生成位置-->
+        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!--接口的生成位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.majiang.community.mapper"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!--表名-->
+        <table tableName="question" domainObjectName="Question" >
+            <!--根据默认的方式对java属性字段命名，不会采用驼峰命名法-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        </table>
+    </context>
+</generatorConfiguration>

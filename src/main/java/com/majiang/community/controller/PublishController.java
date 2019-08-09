@@ -4,7 +4,6 @@ import com.majiang.community.mapper.QuestionMapper;
 import com.majiang.community.model.Question;
 import com.majiang.community.model.User;
 import com.majiang.community.service.QuestionService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
