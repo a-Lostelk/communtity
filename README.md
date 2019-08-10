@@ -36,13 +36,16 @@ flyway：独立于数据库的应用、管理并跟踪数据库变更的数据�
 #### 项目介绍
 主要是面向个人的个人小博客，涉及到多人难度和操作度成倍递增（本人技术尚未有这么高深），使用的是h2数据库，选择h2是因为它是小巧便携的API数据库，登录个人账号是调用github登录的接口登录，省去了user和password等的管理和验证，只需要GitHub的token和授权认证成功后，就可以直接登录
 
+#### 项目结构
+![](https://github.com/a-Lostelk/MyNotes/blob/master/codingImages/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE20190810185002.png)
+
 ##### 大致界面
 
 1.首页
 ![](https://github.com/a-Lostelk/MyNotes/blob/master/codingImages/QQ拼音截图20190810094020.png)
 ![](https://github.com/a-Lostelk/MyNotes/blob/master/codingImages/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20190731212052.png)
 2. 异常处理页面
-![](https://github.com/a-Lostelk/MyNotes/blob/master/codingImages/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE20190810171547.png)
+![](https://github.com/a-Lostelk/MyNotes/blob/master/codingImages/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE2019!810171547.png)
 3. 编辑页面
 ![](https://github.com/a-Lostelk/MyNotes/blob/master/codingImages/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE20190810183159.png)
 
