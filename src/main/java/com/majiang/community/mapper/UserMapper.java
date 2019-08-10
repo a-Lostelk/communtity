@@ -31,7 +31,7 @@ public interface UserMapper {
      * 通过id查找用户
      */
     @Select("SELECT * FROM user where id=#{id} ")
-    User findUserById(@Param("id") Integer id);
+    User findUserById(@Param("id") Long id);
 
     /**
      * 根据accountId查找用户

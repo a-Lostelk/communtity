@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.majiang.community.mapper.QuestionExtMapper">
+    <resultMap id="BaseResultMap" type="com.majiang.community.model.Question">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="TITLE" jdbcType="VARCHAR" property="title" />
+    <result column="GMTCREATE" jdbcType="BIGINT" property="gmtcreate" />
+    <result column="GMTMODIFIED" jdbcType="BIGINT" property="gmtmodified" />
+    <result column="CREATOR" jdbcType="INTEGER" property="creator" />
+    <result column="TAGS" jdbcType="VARCHAR" property="tags" />
+    <result column="VIEWCOUNT" jdbcType="INTEGER" property="viewcount" />
+    <result column="COMMENTCOUNT" jdbcType="INTEGER" property="commentcount" />
+    <result column="LIKECOUNT" jdbcType="INTEGER" property="likecount" />
+    </resultMap>
+    <update id="inCommentCount" parameterType="com.majiang.community.model.Question">
+        update QUESTION
+        set
+        COMMENTCOUNT = COMMENTCOUNT + #{commentcount}
+        where id = #{id}
+    </update>
+    <update id="incView" parameterType="com.majiang.community.model.Question">
+        update QUESTION
+        set
+        VIEWCOUNT = VIEWCOUNT + #{viewcount}
+        where id = #{id}
+    </update>
+</mapper>

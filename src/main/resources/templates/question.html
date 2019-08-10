@@ -26,8 +26,9 @@
             <hr>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${questionDTO.description}"></div>
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <a th:href="@{'/publish/' + ${questionDTO.id}}" th:if="${session.user != null && session.user.id == questionDTO.creator}"
-                   style="color: #9acfea;font-size: 13px">
+
+                <a th:href="@{'/publish/' + ${questionDTO.id}}" th:if="${session.user != null }"
+                   style="color: #9acfea;font-size: 13px"><!--&& session.user.id == questionDTO.creator-->
                     <!--判断是当前问题的用户才可以执行编辑功能-->
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑
                     </span></a>

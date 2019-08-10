@@ -32,7 +32,7 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         <!--表名-->
-        <table tableName="question" domainObjectName="Question" >
+        <table tableName="comment" domainObjectName="Comment" >
             <!--根据默认的方式对java属性字段命名，不会采用驼峰命名法-->
             <!--<property name="useActualColumnNames" value="true"/>-->
         </table>

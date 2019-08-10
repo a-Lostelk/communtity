@@ -19,3 +19,14 @@ comment on column QUESTION.VIEW_COUNT is '阅读数';
 comment on column QUESTION.LIKE_COUNT is '点赞数';
 comment on column QUESTION.TAGS is '标签';
 
+create table COMMENT
+(
+  ID           BIGINT  not null
+    primary key,
+  PARENT_ID    BIGINT  not null,
+  TYPE         INTEGER,
+  COMMENTATOR  INTEGER not null,
+  GMT_CREATE   BIGINT  not null,
+  GMT_MODIFIED BIGINT  not null,
+  LIKE_COUNT   BIGINT default 0
+);

@@ -7,5 +7,7 @@ package com.majiang.community.exception;
  * @Date: 2019/8/6
  */
 public interface ICustomizeErrorCode {
+    Integer getCode();
+
     String getMessage();
 }

@@ -4,9 +4,11 @@ import com.majiang.community.dto.PaginationDTO;
 import com.majiang.community.dto.QuestionDTO;
 import com.majiang.community.exception.CustomizeErrorCode;
 import com.majiang.community.exception.CustomizeException;
+import com.majiang.community.mapper.QuestionExtMapper;
 import com.majiang.community.mapper.QuestionMapper;
 import com.majiang.community.mapper.UserMapper;
 import com.majiang.community.model.Question;
+import com.majiang.community.model.QuestionExample;
 import com.majiang.community.model.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class QuestionService {
     @Autowired(required = true)
     private QuestionMapper questionMapper;
 
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
     /**
      *
      * @param page  是前台点击分页栏的传到后台的结果
@@ -71,7 +75,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO listByUserId(Integer userId, Integer page, Integer size) {
+    public PaginationDTO listByUserId(Long userId, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalPage;
         Integer totalCount = questionMapper.countByUserId(userId);
@@ -105,7 +109,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.getById(id);
         if (question == null) {
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
@@ -123,6 +127,10 @@ public class QuestionService {
             //发布
             question.setGmtcreate(System.currentTimeMillis());
             question.setGmtmodified(question.getGmtcreate());
+            question.setViewcount(0);
+            question.setLikecount(0);
+            question.setCommentcount(0L);
+
             questionMapper.create(question);
         }else{
             //更新
@@ -134,8 +142,19 @@ public class QuestionService {
         }
     }
 
-    public void addViews(Integer id) {
-        //获得ID
-        questionMapper.addViewCount(id);
+    public void incView(Long id) {
+        Question question = new Question();
+        question.setId(id);
+        question.setViewcount(1);
+        questionExtMapper.incView(question);
+    }
+
+    public void addViews(Long id) {
+        Question question = questionMapper.selectByPrimaryKey(id);
+        Question question1 = new Question();
+        question1.setViewcount(question.getViewcount() + 1);
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.createCriteria().andIdEqualTo(id);
+        questionMapper.updateByExampleSelective(question1, questionExample);
     }
 }

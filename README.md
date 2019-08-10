@@ -14,6 +14,8 @@
 
 [MyBatis Generator逆向工程](http://www.mybatis.org/generator/index.html)
 
+[POSTman浏览器插件](https://chrome.google.com/webstore/detail/tabbed-postman-rest-clien/coohjcphdfgbiolnekdpbcijmhambjff)
+
 #### 工具
 
 Maven

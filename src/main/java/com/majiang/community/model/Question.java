@@ -1,7 +1,12 @@
 package com.majiang.community.model;
 
 import lombok.Data;
-
+/**
+ * Created by IntelliJ IDEA.
+ *
+ * @author: fang
+ * @Date: 2019/7/23
+ */
 @Data
 public class Question {
     /**
@@ -11,7 +16,7 @@ public class Question {
      *
      * @mbg.generated Fri Aug 09 10:04:53 CST 2019
      */
-    private Integer id;
+    private Long id;
 
     /**
      *
@@ -56,7 +61,7 @@ public class Question {
      *
      * @mbg.generated Fri Aug 09 10:04:53 CST 2019
      */
-    private Integer creator;
+    private Long creator;
 
     /**
      *
@@ -83,7 +88,7 @@ public class Question {
      *
      * @mbg.generated Fri Aug 09 10:04:53 CST 2019
      */
-    private Integer commentcount;
+    private Long commentcount;
 
     /**
      *
