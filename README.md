@@ -37,7 +37,7 @@ flyway：独立于数据库的应用、管理并跟踪数据库变更的数据�
 主要是面向个人的个人小博客，涉及到多人难度和操作度成倍递增（本人技术尚未有这么高深），使用的是h2数据库，选择h2是因为它是小巧便携的API数据库，登录个人账号是调用github登录的接口登录，省去了user和password等的管理和验证，只需要GitHub的token和授权认证成功后，就可以直接登录
 
 ##### 大致界面
-![11](/https://github.com/a-Lostelk/MyNotes/blob/master/codingImages/QQ拼音截图20190810094020.png)
+![11](https://github.com/a-Lostelk/MyNotes/blob/master/codingImages/QQ拼音截图20190810094020.png)
 
 ##### github授权登录
 **调用github登录的核心**
