@@ -39,7 +39,13 @@ flyway：独立于数据库的应用、管理并跟踪数据库变更的数据�
 ##### 大致界面
 首页
 ![](https://github.com/a-Lostelk/MyNotes/blob/master/codingImages/QQ拼音截图20190810094020.png)
+
+
+
 ![](https://github.com/a-Lostelk/MyNotes/blob/master/codingImages/%E6%90%9C%E7%8B%97%E6%88%AA%E5%9B%BE20190731212052.png)
+
+
+![](https://github.com/a-Lostelk/MyNotes/blob/master/codingImages/QQ%E6%8B%BC%E9%9F%B3%E6%88%AA%E5%9B%BE20190810171547.png)
 
 ##### github授权登录
 **调用github登录的核心**
